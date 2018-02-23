@@ -7,3 +7,4 @@
     2.大一时编写的工程实践项目只完成了增删查改功能
     3.功能有用户登录注册，简单权限分配，地区作物信息记录，天气信息记录，市县级作物分配、echart静态信息显示等功能
 # 部分截图
+![img](https://github.com/Booksun54/agriculture/blob/master/img/01.png)
