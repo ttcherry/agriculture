@@ -8,3 +8,12 @@
     3.功能有用户登录注册，简单权限分配，地区作物信息记录，天气信息记录，市县级作物分配、echart静态信息显示等功能
 # 部分截图
 ![img](https://github.com/Booksun54/agriculture/blob/master/img/01.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/02.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/03.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/04.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/05.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/06.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/07.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/08.png)
+![img](https://github.com/Booksun54/agriculture/blob/master/img/09.png)
+
