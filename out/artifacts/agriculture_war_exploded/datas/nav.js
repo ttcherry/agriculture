@@ -1,0 +1,93 @@
+var navs = [{
+	"title": "水果茶叶",
+	"icon": "fa-cubes",
+	"spread":"false",
+	"children": [{
+		"title": "柑橘",
+		"icon": "&#xe641;",
+		"href": "table.action"
+	}, {
+		"title": "沙梨",
+		"icon": "&#xe63c;",
+		"href": "table.action"
+	}, {
+		"title": "猕猴桃",
+		"icon": "&#xe63c;",
+		"href": "table.action"
+	}, {
+		"title": "胡柚",
+		"icon": "&#xe609;",
+		"href": "table.action"
+	}, {
+		"title": "茶叶",
+		"icon": "&#xe60c;",
+		"href": "table.action"
+	}]
+}, {
+	"title": "蔬菜",
+	"icon": "fa-cogs",
+	"spread": false,
+	"children": [{
+		"title": "黄瓜",
+		"icon": "fa-table.action_2",
+		"href": "table.action"
+	}, {
+		"title": "番茄",
+		"icon": "fa-navicon",
+		"href": "table.action"
+	}, {
+		"title": "茄子",
+		"icon": "&#xe62a;",
+		"href": "table.action"
+	}, {
+		"title": "汉堡包",
+		"icon": "&#xe628;",
+		"href": "table.action"
+	}]
+}, {
+	"title": "水产养殖",
+	"icon": "&#x1002;",
+	"spread": false,
+	"children": [{
+		"title": "黄鳝",
+		"icon": "fa-check-square-o",
+		"href": "table.action"
+	}]
+}, {
+	"title": "龙虾",
+	"icon": "fa-address-book",
+	"href": "",
+	"spread": false,
+	"children": [{
+		"title": "甲鱼",
+		"icon": "fa-github",
+		"href": "table.action"
+	}, {
+		"title": "乌龟",
+		"icon": "fa-qq",
+		"href": "table.action"
+	}, {
+		"title": "青虾",
+		"icon": "&#xe609;",
+		"href": "table.action"
+	}, {
+		"title": "河蟹",
+		"icon": "fa-weibo",
+		"href": "table.action"
+	}]
+}, {
+	"title": "百度",
+	"icon": "fa-stop-circle",
+	"href": "https://www.baidu.com",
+	"spread": false
+}, {
+	"title": "中药材",
+	"icon": "fa-stop-circle",
+	"href": "#",
+	"spread": "false",
+	"children": [{
+		"title": "子窗体中打开选项卡",
+		"icon": "fa-github",
+		"href": "table.action"
+	}]
+}];

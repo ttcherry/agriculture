@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agriculture.mapper.nyxt_MenuMapper" >
+
+  	<!-- 查找农作物的父菜单-->
+  	<select id="findFatherMenu" parameterType="com.agriculture.po.Menu"
+  		 resultType="com.agriculture.po.Menu">
+  		SELECT * FROM nyxt_menu where nyxt_menu.id = nyxt_menu.parent_id AND nyxt_menu.del_flag = 1
+  	</select>
+  	
+  	<!-- 查找每个农作物在菜单表中地的信息 -->
+  	<select id="findChildMenu" parameterType="com.agriculture.po.Menu"
+  	 resultType="com.agriculture.po.Menu">
+  		SELECT * FROM nyxt_menu where nyxt_menu.id != nyxt_menu.parent_id AND nyxt_menu.del_flag = 1
+  	</select>
+  	
+  	
+</mapper>

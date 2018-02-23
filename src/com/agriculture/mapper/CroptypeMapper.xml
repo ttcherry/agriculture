@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agriculture.mapper.CroptypeMapper" >
+
+	<!-- 查询全部作物类别 -->
+	<select id="getCroptypeList" resultType="com.agriculture.po.Croptype">
+		SELECT * FROM nyxt_croptype WHERE del_flag=1
+	</select>
+	
+	<!-- 根据作物种类名称查询 -->
+	<select id="getCroptypeByName" parameterType="com.agriculture.po.Croptype"
+	resultType="com.agriculture.po.Croptype">
+		SELECT * FROM nyxt_croptype WHERE croptype_name=#{croptype_name} AND del_flag=1
+	</select>
+	
+	<!-- 添加作物种类 -->
+	<insert id="insertCroptype" parameterType="com.agriculture.po.Croptype">
+		INSERT INTO nyxt_croptype(croptype_name,create_by,create_date,remarks) VALUES (#{croptype_name},#{create_by},#{create_date},#{remarks})
+	</insert>
+	
+	<!-- 根据id查询作物种类 -->
+	<select id="selectCroptypeById" parameterType="java.lang.Integer"
+	resultType="com.agriculture.po.Croptype">
+		SELECT * FROM nyxt_croptype WHERE id=#{id} AND del_flag=1
+	</select>
+	<!-- 根据id删除作物类别 -->
+	<update id="deleteCroptypeById" parameterType="com.agriculture.po.Croptype">
+		UPDATE nyxt_croptype SET update_date=#{update_date}, update_by=#{update_by}, del_flag=0 WHERE id=#{id}
+	</update>
+	<!-- 根据id修改作物种类 -->
+	<update id="updateCroptypeById" parameterType="com.agriculture.po.Croptype">
+		UPDATE nyxt_croptype SET croptype_name=#{croptype_name}, update_by=#{update_by}, update_date=#{update_date}, remarks=#{remarks} WHERE id=#{id}
+	</update>
+	
+	<!-- 根据作物种类名称和id查询 -->
+	<select id="getCroptypeByNameId" parameterType="com.agriculture.po.Croptype"
+	resultType="com.agriculture.po.Croptype">
+		SELECT * FROM nyxt_croptype WHERE croptype_name=#{croptype_name} AND id!=#{id} AND del_flag=1
+	</select>
+</mapper>

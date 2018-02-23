@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agriculture.mapper.nyxt_AreaMapper" >
+
+  	<!-- 查找地区管理的List-->
+  	<select id="findAreaList" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area
+  	</select>
+  	
+  
+  	<!-- 查找省级的List-->
+  	<select id="findProvinceTreeMenu" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area WHERE type='1'
+  	</select>
+  	
+  	  	<!-- 查找市级的List-->
+  	<select id="findCityTreeMenu" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area WHERE type='2'
+  	</select>
+  	
+  	
+  	  	<!-- 查找县级的List-->
+  	<select id="findCountyTreeMenu" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area WHERE type='3'
+  	</select>
+  	
+  	  	  	<!-- 查找省级管理得到的List-->
+  	<select id="findAreaListByProvince" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area  WHERE type!=0
+  	</select>
+  	
+  	  	  	<!-- 查找市级管理得到的List-->
+  	<select id="findAreaListByCity" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area WHERE type!='1' and type != '0'
+  	</select>
+  	
+  	  	  	<!-- 查找县级管理得到的List-->
+  	<select id="findAreaListByCounty" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area WHERE type='3'
+  	</select>
+  	
+  			<!-- 添加地区信息 -->
+  	<insert id="insertArea" parameterType="com.agriculture.po.Area">
+  		insert into nyxt_area (area_name,type,p_id,create_by,create_date,update_by,update_date) values(#{area_name},#{type},#{p_id},#{create_by},#{create_date},#{update_by},#{update_date})
+  	</insert>
+  	
+  	<!-- 删除地区信息 -->
+  	<delete id="deleteArea" parameterType="com.agriculture.po.Area">
+		delete from nyxt_area where id = #{id}
+	</delete>
+  	
+  	<!-- 更新地区信息 -->
+  	<update id="EditArea"  parameterType="com.agriculture.po.Area">
+		update nyxt_area set area_name=#{area_name},code=#{code},type=#{type},p_id=#{p_id},create_by=#{create_by},create_date=#{create_date},update_by=#{update_by},update_date=#{update_date} where id = #{id}
+	</update>
+	
+	<!-- 查询地区信息 -->
+	<select id="selectArea" parameterType="com.agriculture.po.Area"
+  		 resultType="com.agriculture.po.Area">
+  		SELECT * FROM nyxt_area WHERE id=#{id}
+  	</select>
+  	
+  	<!-- 模糊查询 -->
+	<select id="searchArea" parameterType="java.lang.String" resultType="com.agriculture.po.Area">
+		SELECT nyxt_area.* FROM nyxt_area WHERE nyxt_area.area_name  LIKE "%"#{keyword}"%" AND nyxt_area.del_flag = 1 AND id != 0 ORDER BY nyxt_area.id ASC
+	</select>
+	
+	 	<!-- 通过名称查询Area -->
+	<select id="searchAreaByName" parameterType="com.agriculture.po.Area" resultType="com.agriculture.po.Area">
+		SELECT nyxt_area.* FROM nyxt_area WHERE nyxt_area.area_name = #{area_name} AND nyxt_area.del_flag = 1 
+	</select>
+	
+</mapper>

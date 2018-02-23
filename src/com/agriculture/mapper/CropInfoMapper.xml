@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agriculture.mapper.CropInfoMapper">
+
+  	<!-- 气象要素指标 -->
+  	<select id="getFactorByCropId" parameterType="java.lang.Integer" resultType="com.agriculture.po.Factor">
+  		SELECT nyxt_factor.* FROM nyxt_factor WHERE crop_id=#{crop_id} AND del_flag = 1
+  	</select>
+  	
+  	
+  	<!-- 气象要素指标 -->
+  	<select id="getFactorById" parameterType="java.lang.Integer" resultType="com.agriculture.po.Factor">
+  		SELECT nyxt_factor.* FROM nyxt_factor WHERE id=#{id} AND del_flag = 1
+  	</select>
+  	
+  		<!-- 查询气象要素指标个数 -->
+  	<select id="getFactorCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		SELECT  count(*) FROM nyxt_factor WHERE crop_id=#{crop_id} AND del_flag = 1
+  	</select>
+  	
+  		<!-- 查询气象灾害个数 -->
+  	<select id="getDisasterCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		SELECT  count(*) FROM nyxt_disaster WHERE crop_id=#{crop_id} AND del_flag = 1
+  	</select>
+
+  	<!-- 获取产品信息 -->
+  	<select id="getProduct" parameterType="com.agriculture.po.Product" resultType="com.agriculture.po.Product">
+  		SELECT nyxt_product.* FROM nyxt_product WHERE crop_id=#{crop_id} AND product_type=#{product_type} AND del_flag=1
+  	</select>
+
+  	<!-- 气象条件指标 -->
+  	<select id="getConditionByCropId" parameterType="java.lang.Integer" resultType="com.agriculture.po.Condition">
+  		SELECT nyxt_condition.* FROM nyxt_condition WHERE crop_id=#{crop_id}
+  	</select>
+  	
+  		<!-- 根据id获取气象条件指标 -->
+  	<select id="getConditionById" parameterType="java.lang.Integer" resultType="com.agriculture.po.Condition">
+  		SELECT nyxt_condition.* FROM nyxt_condition WHERE id=#{id}
+  	</select>
+  	
+ 	<!-- 根据id获取农业活动建议 -->
+  	<select id="getActiveById" parameterType="java.lang.Integer" resultType="com.agriculture.po.Active">
+  		SELECT nyxt_active.* FROM nyxt_active WHERE id=#{id}
+  	</select>
+  	
+  	
+  	<!-- 农业活动建议 -->
+  	<select id="getActiveByCropId" parameterType="java.lang.Integer" resultType="com.agriculture.po.Active">
+  		SELECT nyxt_active.* FROM nyxt_active WHERE crop_id=#{crop_id}
+  	</select>
+  	
+  	<!-- 气象灾害 -->
+  	<select id="getDisasterByCropId" parameterType="java.lang.Integer" resultType="com.agriculture.po.Disaster">
+  		SELECT nyxt_disaster.* FROM nyxt_disaster WHERE crop_id=#{crop_id} AND del_flag = 1
+  	</select>
+  	
+  	<!-- 气象灾害 根据id-->
+  	<select id="getDisasterById" parameterType="java.lang.Integer" resultType="com.agriculture.po.Disaster">
+  		SELECT nyxt_disaster.* FROM nyxt_disaster WHERE id=#{id} AND del_flag = 1
+  	</select>
+  	
+
+  	  	<!-- 删除气象要素指标 -->
+	<update id="deleteFactorById" parameterType="java.lang.Integer">
+		UPDATE nyxt_factor SET del_flag=0 WHERE id=#{id}
+	</update>
+	
+	<!-- 删除气象灾害 -->
+	<update id="deleteDisasterById" parameterType="java.lang.Integer">
+		UPDATE nyxt_disaster SET del_flag=0 WHERE id=#{id}
+	</update>
+	
+	<!-- 更新气象要素指标 -->
+	<update id="Factoredit" parameterType="com.agriculture.po.Factor">
+		UPDATE nyxt_factor SET factor_name=#{factor_name},resuitlow=#{resuitlow},suitlow=#{suitlow},suitmid=#{suitmid},resuithigh = #{resuithigh} , suithigh = #{suithigh} ,update_by = #{update_by} , update_date=#{update_date}  WHERE id=#{id}
+	</update>
+	
+	<!-- 更新气象条件 -->
+	<update id="Conditionedit" parameterType="com.agriculture.po.Condition">
+		UPDATE nyxt_condition SET resuit =#{resuit} , suit=#{suit} , notsuit=#{notsuit}, update_by=#{update_by},update_date=#{update_date} WHERE id=#{id}
+	</update>
+	
+	<!-- 更新农业活动建议 -->
+	<update id="Activeedit" parameterType="com.agriculture.po.Active">
+		UPDATE nyxt_active SET consider=#{consider},advice=#{advice} WHERE id=#{id}
+	</update>
+	
+	<!-- 更新气象灾害 -->
+	<update id="Disasteredit" parameterType="com.agriculture.po.Disaster">
+		UPDATE nyxt_disaster SET disaster_name = #{disaster_name} , type = #{type} ,conif=#{conif} , measure = #{measure} , product = #{product}  WHERE id=#{id}
+	</update>
+	
+  	<!-- 生长时间 -->
+  	<select id="getGrowtimeByCropId" parameterType="java.lang.Integer" resultType="com.agriculture.po.Growtime">
+  		SELECT nyxt_growtime.* FROM nyxt_growtime WHERE crop_id=#{crop_id} AND del_flag=1
+  	</select>
+  	
+  	<!-- 添加气象要素指标 -->
+	<insert id="insertFactor" parameterType="com.agriculture.po.Factor">
+		INSERT INTO nyxt_factor (factor_name,crop_id,crop_time_id,resuitlow,suitlow,suitmid,resuithigh,suithigh,create_by,create_date,update_by,del_flag) VALUES(#{factor_name},
+		#{crop_id},#{crop_time_id},#{resuitlow},#{suitlow},#{suitmid},#{resuithigh},#{suithigh},#{create_by},#{create_date},#{update_by},'1')
+	</insert>
+	
+	  	<!-- 添加气象灾害 -->
+	<insert id="insertDisaster" parameterType="com.agriculture.po.Factor">
+		INSERT INTO nyxt_disaster (crop_id,crop_grow_time,disaster_name,type,conif,measure,product,del_flag) VALUES(
+		#{crop_id},#{crop_grow_time},#{disaster_name},#{type},#{conif},#{measure},#{product},'1')
+	</insert>
+
+	
+	<!-- 删除产品信息 -->
+	<update id="deleteProductById" parameterType="java.lang.Integer">
+		UPDATE nyxt_product SET del_flag=0 WHERE id=#{id}
+	</update>
+	
+	<!-- 删除作物生长时间 -->
+	<update id="deleteGrowTimeById" parameterType="java.lang.Integer">
+		UPDATE nyxt_growtime SET del_flag=0 WHERE id=#{id}
+	</update>
+	
+	<!-- 添加产品信息 -->
+	<insert id="insertProduct" parameterType="com.agriculture.po.Product">
+		INSERT INTO nyxt_product (crop_id,product_type,product_name,important) VALUES(#{crop_id},#{product_type},#{product_name},#{important})
+	</insert> 
+	
+	<!-- 查询是否有重复现象，否者添加失败 -->
+	<select id="selectProductByName" parameterType="com.agriculture.po.Product" resultType="com.agriculture.po.Product">
+		SELECT nyxt_product.* FROM nyxt_product WHERE product_type=#{product_type} AND product_name=#{product_name} AND crop_id=#{crop_id} AND del_flag=1
+	</select> 
+	
+	<!-- 添加作物生长时间 -->
+	<insert id="insertGrowTime" parameterType="com.agriculture.po.Growtime">
+		INSERT INTO nyxt_growtime (grow_name,startmonth,startxun,endmonth,endxun,crop_id,create_by,create_date,update_by,update_date) 
+		VALUES(#{grow_name},#{startmonth},#{startxun},#{endmonth},#{endxun},#{crop_id},#{create_by},#{create_date},#{update_by},#{update_date})
+	</insert>
+	
+	<!-- 查询该作物生长的名称是否重复 -->
+	<select id="selectGrowTimeByName" parameterType="com.agriculture.po.Growtime" resultType="com.agriculture.po.Growtime">
+		SELECT nyxt_growtime.* FROM nyxt_growtime WHERE crop_id=#{crop_id} AND grow_name=#{grow_name} AND del_flag=1
+	</select> 
+	
+	<!-- 更具id查询产品信息 -->
+	<select id="selectProductById" parameterType="java.lang.Integer" resultType="com.agriculture.po.Product">
+		SELECT nyxt_product.* FROM nyxt_product WHERE id=#{id} AND del_flag=1
+	</select>
+	
+	<!-- 更具id查询产品信息 -->
+	<select id="getProductCount" parameterType="com.agriculture.po.Product" resultType="java.lang.Integer">
+		SELECT count(*) FROM nyxt_product WHERE crop_id=#{crop_id} AND product_type=#{product_type} AND del_flag=1
+	</select>
+	
+	<!-- 更具查询作物生长时间个数 -->
+	<select id="getGrowtimeCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT count(*) FROM nyxt_growtime WHERE crop_id=#{crop_id} AND del_flag=1
+	</select>
+	
+	<!--修改产品信息 -->
+	<update id="updateProduct" parameterType="com.agriculture.po.Product">
+		UPDATE nyxt_product SET product_name=#{product_name},important=#{important} WHERE id=#{id} AND del_flag=1 
+	</update>
+	
+	<!-- 查询该作物生长的名称是否重复，否者修改失败 -->
+	<select id="selectProductByNameId" parameterType="com.agriculture.po.Product" resultType="com.agriculture.po.Product">
+		SELECT nyxt_product.* FROM nyxt_product WHERE  id!=#{id} AND crop_id=#{crop_id} AND product_type=#{product_type} AND product_name=#{product_name} AND del_flag=1
+	</select>
+	
+	<!-- 作物生长时间的获取根据id -->
+	<select id="selectGrowTimeById" parameterType="java.lang.Integer" resultType="com.agriculture.po.Growtime">
+		SELECT nyxt_growtime.* FROM nyxt_growtime WHERE id=#{id} AND del_flag=1
+	</select>
+	
+	<!-- 根据作物的生长的名称和crop_id查询是否重名，否者编辑失败  -->
+	<select id="selectGrowTimeByNameId" parameterType="com.agriculture.po.Growtime"  resultType="com.agriculture.po.Growtime">
+		SELECT nyxt_growtime.* FROM nyxt_growtime WHERE crop_id=#{crop_id} AND grow_name=#{grow_name} AND id!=#{id} AND del_flag=1
+	</select>
+	
+	<!-- 编辑作物生长时间-->
+	<update id="updateGrowTime" parameterType="com.agriculture.po.Growtime">
+		UPDATE nyxt_growtime SET grow_name=#{grow_name},startmonth=#{startmonth},startxun=#{startxun},endmonth=#{endmonth},endxun=#{endxun},update_by=#{update_by},update_date=#{update_date} WHERE id=#{id} AND del_flag=1 
+	</update> 
+
+	
+		<!-- 添加气象条件指标 -->
+	<insert id="insertCondition" parameterType="com.agriculture.po.Condition">
+		INSERT INTO nyxt_condition (crop_id,crop_grow_time,resuit,suit,notsuit,create_by,create_date,update_by,update_date,del_flag) VALUES(
+		#{crop_id},#{crop_grow_time},#{resuit},#{suit},#{notsuit},#{create_by},#{create_date},#{update_by},#{update_date},'1')
+	</insert>
+	
+		<!-- 添加气象建议指标 -->
+	<insert id="insertActive" parameterType="com.agriculture.po.Active">
+		INSERT INTO nyxt_active (crop_id,crop_grow_time,consider,advice,del_flag) VALUES(
+		#{crop_id},#{crop_grow_time},#{consider},#{advice},'1')
+	</insert>
+
+
+</mapper>

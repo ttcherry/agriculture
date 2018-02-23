@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agriculture.mapper.SysUserMapper" >
+
+  	<!-- 根据账号和密码查找用户信息 -->
+  	<select id="findInfoByAccount" parameterType="com.agriculture.po.SysUser"
+  		 resultType="com.agriculture.po.SysUser">
+  		SELECT * FROM nyxt_sysuser WHERE account=#{account} AND password=#{password} AND del_flag = 1
+  	</select>
+  	
+  	<!-- 根据账号查找用户信息 -->
+  	<select id="getInfoByAccount" parameterType="java.lang.String"
+  		 resultType="com.agriculture.po.SysUser">
+  		SELECT * FROM nyxt_sysuser WHERE account=#{account} AND del_flag = 1
+  	</select>
+  	
+  	<!-- 提交个人修改信息 （包括修改图片）-->
+  	<update id="submitUserInfo" parameterType="com.agriculture.po.SysUser">
+  		UPDATE nyxt_sysuser SET name=#{name},password=#{password},photo=#{photo},post=#{post},sex=#{sex},email=#{email},qq=#{qq},pic=#{pic},role_id=#{role_id},<if test="update_by != null">update_by=#{update_by},</if>update_date=#{update_date} WHERE account=#{account} AND del_flag = 1
+  	</update>
+  	
+  	<!-- 提交个人修改信息 （不包括修改图片）-->
+  	<update id="submitUserInfoNot" parameterType="com.agriculture.po.SysUser">
+  		UPDATE nyxt_sysuser SET name=#{name},password=#{password},photo=#{photo},post=#{post},sex=#{sex},email=#{email},qq=#{qq},role_id=#{role_id},<if test="update_by != null">update_by=#{update_by},</if>update_date=#{update_date} WHERE account=#{account} AND del_flag = 1
+  	</update>
+  	
+  	
+	<!-- 添加个人信息 -->
+	<insert id="insertPerson" parameterType="com.agriculture.po.SysUser">
+		INSERT INTO nyxt_sysuser (account,password,name,phone,email,qq,post,create_by,create_date,update_by,update_date,del_flag,pic,role_id,sex) VALUES(#{account},#{password},#{name},#{phone},#{email},#{qq},#{post},#{create_by},#{create_date},#{update_by},#{update_date},1,#{pic},#{role_id},#{sex})
+	</insert>
+	
+	<!-- 查找所有用户信息 -->
+  	<select id="getAllUser" 
+  		 resultType="com.agriculture.po.SysUser">
+  		SELECT * FROM nyxt_sysuser WHERE nyxt_sysuser.del_flag = 1 
+  	</select>
+  	
+  		<!-- 模糊查询 -->
+  	<select id="searchPerson" 
+  		 resultType="com.agriculture.po.SysUser">
+  				SELECT nyxt_sysuser.* FROM nyxt_sysuser WHERE  nyxt_sysuser.del_flag=1 AND nyxt_sysuser.name LIKE "%"#{keyword}"%" OR nyxt_sysuser.account LIKE "%"#{keyword}"%" ORDER BY nyxt_sysuser.id ASC
+  	</select>
+  	
+  		<!-- 删除管理员 -->
+  	<update id="deleteUser" parameterType="int">
+  		UPDATE nyxt_sysuser SET del_flag=0 WHERE id=#{id}
+  	</update>
+  	
+  		<!-- 根据Id查找用户信息 -->
+  	<select id="getUserById" parameterType="int"
+  		 resultType="com.agriculture.po.SysUser">
+  		SELECT * FROM nyxt_sysuser WHERE id=#{id} AND del_flag = 1
+  	</select>
+  	
+</mapper>

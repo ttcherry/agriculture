@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+<!-- 用户管理的service -->
+<bean id="sysUserService" class="com.agriculture.service.impl.SysUserServiceImpl"/>
+<bean id="nyxt_menuService" class="com.agriculture.service.impl.nyxt_menuServiceImpl"/>
+<bean id="nyxt_AreaService" class="com.agriculture.service.impl.nyxt_AreaServiceImpl"/>
+<bean id="croptypeService" class="com.agriculture.service.impl.CroptypeServiceImpl"/>
+<bean id="cropService" class="com.agriculture.service.impl.CropServiceImpl"/>
+<bean id="cropInfoService" class="com.agriculture.service.impl.CropInfoServiceImpl"/>
+</beans>

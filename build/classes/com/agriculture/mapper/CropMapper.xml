@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agriculture.mapper.CropMapper" >
+
+	<!-- 查询全部作物信息 -->
+	<select id="getCropList" resultType="com.agriculture.po.CropCustom">
+		SELECT nyxt_crop.*,nyxt_croptype.croptype_name FROM nyxt_crop,nyxt_croptype WHERE nyxt_crop.area_id=0 AND nyxt_crop.croptype=nyxt_croptype.id AND nyxt_crop.del_flag=1 GROUP BY nyxt_crop.crop_name ORDER BY nyxt_croptype.id ASC
+	</select>
+	
+	<!-- 查询作物所属地区 -->
+	<select id="getCropAreaList" resultType="com.agriculture.po.CropCustom">
+		SELECT nyxt_crop.crop_name,nyxt_area.area_name FROM nyxt_crop,nyxt_area WHERE nyxt_crop.area_id=nyxt_area.id ORDER BY nyxt_area.type ASC 
+	</select>
+
+	
+	<!-- 根据作物名称查询 -->
+	<select id="selectCropByName" parameterType="java.lang.String"
+	resultType="com.agriculture.po.Crop">
+		SELECT * FROM nyxt_crop WHERE crop_name=#{crop_name} AND del_flag=1
+	</select>
+	
+	<!-- 添加作物信息 -->
+	<insert id="insertCrop" parameterType="com.agriculture.po.Crop">
+		INSERT INTO nyxt_crop (crop_name,croptype,create_by,create_date,area_id,remarks) VALUES(#{crop_name},#{croptype},#{create_by},#{create_date},#{area_id},#{remarks})
+	</insert>
+	
+	<!-- 根据id查询作物信息 -->
+	<select id="selectCropById" parameterType="java.lang.Integer"
+	resultType="com.agriculture.po.CropCustom">
+		SELECT nyxt_crop.*,nyxt_croptype.croptype_name FROM nyxt_crop,nyxt_croptype WHERE nyxt_crop.croptype=nyxt_croptype.id AND nyxt_crop.id=#{id} ORDER BY nyxt_croptype.id ASC
+	</select>
+	
+	<!-- 根据作物名称删除作物信息 -->
+	<update id="deleteCropByName" parameterType="com.agriculture.po.Crop">
+		UPDATE nyxt_crop SET del_flag=0,update_by=#{update_by},update_date=#{update_date} WHERE crop_name=#{crop_name}
+	</update>
+	
+	<!-- 根据作物id删除作物信息 -->
+	<update id="deleteCropById" parameterType="com.agriculture.po.Crop">
+		UPDATE nyxt_crop SET del_flag=0,update_by=#{update_by},update_date=#{update_date} WHERE id=#{id}
+	</update>
+
+	<!-- 根据area_id查询作物所属地区 -->
+	<select id="getCropListByArea_id" parameterType="int" resultType="com.agriculture.po.CropCustom">
+
+		SELECT nyxt_crop.id,nyxt_crop.crop_name,nyxt_croptype.croptype_name from nyxt_crop,nyxt_croptype Where area_id=#{area_id} and nyxt_crop.croptype=nyxt_croptype.id and nyxt_crop.del_flag = 1
+
+	</select>
+	
+	<!-- 修改作物信息 -->
+	<update id="cropedit" parameterType="com.agriculture.po.Crop">
+		UPDATE nyxt_crop SET crop_name=#{crop_name}, remarks=#{remarks}, croptype=#{croptype},update_by=#{update_by},update_date=#{update_date} WHERE crop_name=#{help}
+	</update>
+	
+	<!-- 模糊查询 -->
+	<select id="searchCrop" parameterType="java.lang.String" resultType="com.agriculture.po.CropCustom">
+		SELECT nyxt_crop.*,nyxt_croptype.croptype_name FROM nyxt_crop,nyxt_croptype WHERE nyxt_crop.area_id=0 AND nyxt_crop.croptype=nyxt_croptype.id AND nyxt_crop.del_flag=1 AND crop_name LIKE "%"#{keyword}"%" OR croptype_name LIKE "%"#{keyword}"%" AND nyxt_crop.croptype=nyxt_croptype.id AND nyxt_crop.del_flag=1 AND nyxt_crop.area_id=0 ORDER BY nyxt_croptype.id ASC
+	</select>
+	
+	<!-- 根据作物名称和id查询 -->
+	<select id="selectCropByNameId" parameterType="com.agriculture.po.Crop"
+	resultType="com.agriculture.po.Crop">
+
+		SELECT * FROM nyxt_crop WHERE crop_name=#{crop_name} AND area_id=0 AND id!=#{id} AND del_flag=1
+
+	</select>
+	
+	<!-- 查询地区上级作物相关信息 -->
+	<select id="selectCropByAreaId"  parameterType="java.lang.Integer" resultType="com.agriculture.po.CropCustom">
+		SELECT DISTINCT nyxt_crop.*,nyxt_croptype.croptype_name FROM nyxt_crop ,nyxt_croptype,nyxt_area FIRST,nyxt_area SECOND WHERE FIRST.id = SECOND.p_id AND SECOND.id = #{id} AND nyxt_crop.area_id=FIRST.id AND nyxt_crop.croptype = nyxt.nyxt_croptype.id
+	</select>
+	
+</mapper>
